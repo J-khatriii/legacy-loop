@@ -18,6 +18,7 @@ const Layout = () => {
       </div>
       {
         sidebarOpen ?
+        // TODO : add the button for closing sidebar
         <X className="absolute top-3 p-2 z-100 bg-white rounded-md shadow w-10 h-10 text-gray-600 sm:hidden" onClick={() => setSidebarOpen(false)} />
         : 
         <MenuIcon className="absolute top-3 p-2 z-100 bg-white rounded-md shadow w-10 h-10 text-gray-600 sm:hidden" onClick={() => setSidebarOpen(true)} />
