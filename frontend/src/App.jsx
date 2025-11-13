@@ -8,9 +8,12 @@ import People from "./pages/People";
 import Layout from "./pages/Layout";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
+import CreatePost from "./pages/CreatePost";
+import Notifications from "./pages/Notifications";
 
 import PublicRoute from "./routes/PublicRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Settings from "./pages/Settings";
 
 const App = () => {
 
@@ -47,6 +50,10 @@ const App = () => {
           <Route path="/app/messages/:id" element={ <Messages /> } />
           <Route path="/app/people" element={ <People /> } />
           <Route path="/app/profile" element={ <Profile /> } />
+          <Route path="/app/create-post" element={<CreatePost />} />
+          <Route path="/app/notifications" element={<Notifications />} />
+          <Route path="/app/settings" element={<Settings />} />
+
         </Route>
 
 
