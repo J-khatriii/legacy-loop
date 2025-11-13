@@ -290,9 +290,9 @@ const Messages = () => {
                 <input
                   type="text"
                   placeholder="Send a message"
-                  className="flex-1 bg-gray-100 p-3 rounded-lg outline-none h-11"
+                  className="flex-1 bg-gray-200 p-3 rounded-lg outline-none h-11"
                 />
-                <button className="bg-indigo-600 text-white rounded-lg h-9 px-3">
+                <button className="bg-green-600 text-white rounded-lg h-9 px-3">
                   <Send />
                 </button>
               </div>

@@ -65,6 +65,9 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import Student from "../models/Student.js";
+import Alumni from "../models/Alumni.js";
+import Admin from "../models/Admin.js";
 
 const router = express.Router();
 
@@ -136,30 +139,72 @@ router.post("/signup", async (req, res) => {
 });
 
 // --- Signin Route ---
+// router.post("/signin", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+
+//     console.log("Login attempt:", email, password); // debug log
+
+//     const user = await User.findOne({ email });
+//     if (!user) return res.status(400).json({ message: "Invalid credentials" });
+
+//     const isPasswordValid = await bcrypt.compare(password, user.password);
+//     console.log("Password match:", isPasswordValid);
+
+//     if (!isPasswordValid)
+//       return res.status(400).json({ message: "Invalid credentials" });
+
+//     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+//       expiresIn: "1d",
+//     });
+
+//     res.status(200).json({ token, user });
+//   } catch (err) {
+//     console.error("Signin Error:", err);
+//     res.status(500).json({ message: "Server error during signin" });
+//   }
+// });
+
 router.post("/signin", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log("Login attempt:", email, password); // debug log
+    if (!email || !password)
+      return res.status(400).json({ message: "Email and password required" });
 
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid credentials" });
+    // Try to find user in each collection
+    let user =
+      (await Student.findOne({ email })) ||
+      (await Alumni.findOne({ email })) ||
+      (await Admin.findOne({ email }));
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isPasswordValid);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    if (!isPasswordValid)
-      return res.status(400).json({ message: "Invalid credentials" });
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(401).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+    // Create token
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    // Remove password before sending
+    const { password: _, ...safeUser } = user._doc;
+
+    res.status(200).json({
+      message: "Login successful",
+      user: safeUser,
+      token,
     });
-
-    res.status(200).json({ token, user });
-  } catch (err) {
-    console.error("Signin Error:", err);
-    res.status(500).json({ message: "Server error during signin" });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
+
 
 export default router;

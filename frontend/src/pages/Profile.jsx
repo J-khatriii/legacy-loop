@@ -80,7 +80,7 @@ const Profile = () => {
             className="w-full h-full object-cover"
           />
         )}
-        <label className="absolute right-4 bottom-4 bg-black/40 backdrop-blur text-white px-3 py-2 rounded-lg flex items-center gap-2 cursor-pointer text-sm hover:bg-black/50">
+        {/* <label className="absolute right-4 bottom-4 bg-black/40 backdrop-blur text-white px-3 py-2 rounded-lg flex items-center gap-2 cursor-pointer text-sm hover:bg-black/50">
           <Camera size={16} />
           Change Cover
           <input
@@ -88,7 +88,7 @@ const Profile = () => {
             hidden
             onChange={(e) => setBanner(URL.createObjectURL(e.target.files[0]))}
           />
-        </label>
+        </label> */}
       </div>
 
       {/* Profile Header */}
@@ -122,7 +122,7 @@ const Profile = () => {
                     {user.name}
                   </h1>
                   <p className="text-gray-600">{user.department}</p>
-                  <p className="text-sm text-gray-500">{user.year}</p>
+                  {/* <p className="text-sm text-gray-500">Year: {user.year}</p> */}
                 </div>
 
                 <button
@@ -137,7 +137,8 @@ const Profile = () => {
 
               <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-600 text-sm">
                 <div className="flex items-center gap-2">
-                  <MapPin size={16} /> {user.location}
+                  {/* <MapPin size={16} /> {user.location} */}
+                  <MapPin size={16} /> Jodhpur
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={16} /> {user.email}
@@ -227,15 +228,24 @@ const Profile = () => {
               Academic Details
             </h2>
             <p>
-              <BookOpen className="inline mr-2" size={16} /> Branch:{" "}
+              <BookOpen className="inline mr-2" size={16} /> Department:{" "}
               {user.department}
             </p>
             <p>
-              <Briefcase className="inline mr-2" size={16} /> Roll No:{" "}
-              {user.rollNumber}
+              <Calendar className="inline mr-2" size={16} /> Registration No: {user.registrationNo}
             </p>
             <p>
-              <Calendar className="inline mr-2" size={16} /> Batch: {user.year}
+              <Briefcase className="inline mr-2" size={16} /> Roll No:{" "}
+              {user.rollNo}
+            </p>
+            <p>
+              <Calendar className="inline mr-2" size={16} /> Year: {user.year}
+            </p>
+            <p>
+              <Calendar className="inline mr-2" size={16} /> Section: {user.section}
+            </p>
+            <p>
+              <Calendar className="inline mr-2" size={16} /> Batch: {user.batch}
             </p>
           </div>
         )}
