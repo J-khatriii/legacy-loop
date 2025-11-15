@@ -14,6 +14,7 @@ import Notifications from "./pages/Notifications";
 import PublicRoute from "./routes/PublicRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Settings from "./pages/Settings";
+import AdminSendMessage from "./pages/admin/Messages";
 
 const App = () => {
 
@@ -42,7 +43,7 @@ const App = () => {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Layout />} />
+        <Route index element={<Layout />} />
           
           {/* children share the same sidebar */}
           <Route path="layout" element={ <Layout /> } />
@@ -52,7 +53,9 @@ const App = () => {
           <Route path="/app/profile" element={ <Profile /> } />
           <Route path="/app/create-post" element={<CreatePost />} />
           <Route path="/app/notifications" element={<Notifications />} />
-          <Route path="/app/settings" element={<Settings />} />
+          <Route path="/app/settings" element={<Settings />} />          
+
+          <Route path="/app/announcement" element={<AdminSendMessage />} />
 
         </Route>
 

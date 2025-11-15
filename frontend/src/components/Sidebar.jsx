@@ -210,6 +210,7 @@ import {
   Bell,
   ArrowRightToLine,
   ArrowLeftToLine,
+  Megaphone,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -221,6 +222,7 @@ const getNavItems = (role) => {
     { label: "Discover", href: "/app/people", icon: Search },
     { label: "Messages", href: "/app/messages", icon: MessageCircle },
     { label: "Notifications", href: "/app/notifications", icon: Bell },
+    { label: "Announcement", href: "/app/announcement", icon: Megaphone },
     { divider: true },
   ];
 
