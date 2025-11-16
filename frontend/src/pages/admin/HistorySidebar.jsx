@@ -1,16 +1,14 @@
+// HistorySidebar.jsx
 import { Clock } from "lucide-react";
 
-/**
- * Right-hand history panel showing saved announcements
- */
 const HistorySidebar = ({ announcementHistory = [] }) => {
   return (
-    <div className="bg-white rounded-xl shadow-md p-4">
+    <div className="bg-white rounded-xl shadow-md p-4 h-full">
       <h3 className="font-semibold text-lg flex items-center gap-2">
         <Clock size={18} /> Previous Announcements
       </h3>
 
-      <div className="mt-3 space-y-3 max-h-[70vh] overflow-y-auto no-scrollbar">
+      <div className="mt-3 space-y-3 max-h-[calc(100vh-140px)] overflow-y-auto no-scrollbar">
         {announcementHistory.length === 0 ? (
           <div className="text-sm text-gray-500">No announcements yet.</div>
         ) : (
@@ -20,7 +18,7 @@ const HistorySidebar = ({ announcementHistory = [] }) => {
               <div className="font-medium mt-1">{a.title}</div>
               <div className="text-sm text-gray-700 mt-1 line-clamp-3">{a.message}</div>
               <div className="text-xs text-gray-500 mt-2">
-                Audience: {a.audience && a.audience.length ? a.audience.join(", ") : "None"}
+                Audience: {Array.isArray(a.audience) ? (a.audience.length ? a.audience.join(", ") : "None") : (a.audience || "None")}
               </div>
             </div>
           ))
