@@ -1,75 +1,107 @@
 import { BadgeCheck, Heart, MessageCircle, Share2 } from "lucide-react";
 import moment from "moment";
 import { useState } from "react";
-import { dummyUserData } from "../assets/assets";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { assets } from "../assets/assets";
 
-const PostCard = ({ post }) => {
-  const postWithHashtags = post.content.replace(
-    /(#\w+)/g,
-    '<span class="text-blue-500 cursor-pointer">$1</span>'
-  );
-
-  const [likes, setLikes] = useState(post.likes_count);
-
-  const currentUser = dummyUserData;
-
-  const handleLike = async () => {};
-
+const PostCard = ({ post, currentUser, refreshFeed }) => {
+  const [likes, setLikes] = useState(post.likes || []);
   const navigate = useNavigate();
+
+  const author = post.author || {};
+
+  const handleLike = async () => {
+    if (!currentUser) return;
+    try {
+      await axios.post(
+        `http://localhost:4000/api/posts/${post._id}/like`,
+        {},
+        { headers: { Authorization: `Bearer ${currentUser.token}` } }
+      );
+
+      setLikes((prev) =>
+        prev.includes(currentUser._id)
+          ? prev.filter((id) => id !== currentUser._id)
+          : [...prev, currentUser._id]
+      );
+
+      refreshFeed?.();
+    } catch (err) {
+      console.error("Error liking post:", err);
+    }
+  };
 
   return (
     <div className="bg-white rounded-lg shadow p-4 space-y-4 w-full max-w-xl">
-      {/* user info */}
+      {/* User Info */}
       <div
-        onClick={() => navigate("/profile/" + post.user._id)}
+        onClick={() => author._id && navigate("/profile/" + author._id)}
         className="inline-flex items-center gap-3 cursor-pointer"
       >
         <img
-          src={post.user.profile_picture}
-          className="w-10 h-10 rounded-full shadow"
+          src={author.profileImage || assets.profile}
           alt="user"
+          className="w-10 h-10 rounded-full shadow"
         />
         <div>
           <div className="flex items-center space-x-1">
-            <span>{post.user.full_name}</span>
+            <span>{author.name || "Unknown"}</span>
             <BadgeCheck className="w-4 h-4 text-blue-500" />
           </div>
           <div className="text-sm text-gray-500">
-            @{post.user.username} · {moment(post.createdAt).fromNow()}
+            @{author.name?.replace(/\s+/g, "").toLowerCase() || "user"} ·{" "}
+            {moment(post.createdAt).fromNow()}
           </div>
         </div>
       </div>
 
-      {/* post content */}
+      {/* Post Content */}
       {post.content && (
         <div
           className="text-gray-500 text-sm whitespace-pre-line"
-          dangerouslySetInnerHTML={{ __html: postWithHashtags }}
+          dangerouslySetInnerHTML={{
+            __html: post.content.replace(
+              /(#\w+)/g,
+              '<span class="text-blue-500 cursor-pointer">$1</span>'
+            ),
+          }}
         />
       )}
 
-      {/* images */}
-      <div className="grid grid-cols-2 gap-2">
-        {post.image_urls.map((img, index) => (
-          <img
-            src={img}
-            key={index}
-            className={`w-full h-48 object-cover rounded-lg ${
-              post.image_urls.length === 1 && "col-span-2 h-auto"
-            }`}
-            alt="post image"
-          />
-        ))}
-      </div>
+      {/* Media */}
+      {post.media?.length > 0 && (
+        <div className="grid grid-cols-2 gap-2">
+          {post.media.map((m, index) => (
+            <div key={index} className={m.type === "video" ? "col-span-2" : ""}>
+              {m.type === "image" ? (
+                <img
+                  src={m.url}
+                  className={`w-full h-48 object-cover rounded-lg ${
+                    post.media.length === 1 ? "col-span-2 h-auto" : ""
+                  }`}
+                  alt="post media"
+                />
+              ) : (
+                <video
+                  controls
+                  src={m.url}
+                  className="w-full h-48 object-cover rounded-lg col-span-2"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
 
-      {/* Actions: comments, likes, shares */}
-
+      {/* Actions */}
       <div className="flex items-center gap-4 text-gray-600 text-sm pt-2 border-t border-gray-300">
         <div className="flex items-center gap-1">
           <Heart
             className={`w-4 h-4 cursor-pointer ${
-              likes.includes(currentUser._id) && "text-red-500 fill-red-500"
+              currentUser && likes.includes(currentUser._id)
+                ? "text-red-500 fill-red-500"
+                : ""
             }`}
             onClick={handleLike}
           />
@@ -77,11 +109,11 @@ const PostCard = ({ post }) => {
         </div>
         <div className="flex items-center gap-1">
           <MessageCircle className="w-4 h-4" />
-          <span>{12}</span>
+          <span>{post.commentsCount || 0}</span>
         </div>
         <div className="flex items-center gap-1">
           <Share2 className="w-4 h-4" />
-          <span>{8}</span>
+          <span>0</span>
         </div>
       </div>
     </div>

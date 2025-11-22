@@ -6,6 +6,7 @@ import group_users from './group_users.png'
 import { Home, MessageCircle, Search, UserIcon, Users } from 'lucide-react'
 import sponsored_img from './sponsored_img.png'
 import google_icon from './google.svg'
+import profile from "./profile.jpg"
 
 export const assets = {
     logo,
@@ -15,6 +16,7 @@ export const assets = {
     group_users,
     sponsored_img,
     google_icon,
+    profile,
 }
 
 export const menuItemsData = [

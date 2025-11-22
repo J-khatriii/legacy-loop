@@ -34,8 +34,10 @@ const SignIn = () => {
       // Success toast
       toast.success(`Welcome back, ${res.data.user.name}!`);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      // localStorage.setItem("token", res.data.token);
+      // localStorage.setItem("user", JSON.stringify(res.data.user));
+      const userWithToken = { ...res.data.user, token: res.data.token };
+localStorage.setItem("user", JSON.stringify(userWithToken));
 
       // Redirect
       navigate("/layout");

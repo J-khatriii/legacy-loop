@@ -19,11 +19,19 @@ const People = () => {
         const storedUser = JSON.parse(localStorage.getItem("user"));
         setCurrentUser(storedUser);
 
-        // ✅ Fetch all users (students + alumni + admin)
-        const res = await axios.get("http://localhost:4000/api/users/all");
-        let allUsers = res.data;
+        // const res = await axios.get("http://localhost:4000/api/users/all");
+        // let allUsers = res.data;
 
-        // Filter out self
+        // // Filter out self
+        // if (storedUser) {
+        //   allUsers = allUsers.filter((u) => u._id !== storedUser._id);
+        // }
+
+        // setUsers(allUsers);
+
+        const res = await axios.get("http://localhost:4000/api/users/all");
+        let allUsers = Array.isArray(res.data.users) ? res.data.users : [];
+
         if (storedUser) {
           allUsers = allUsers.filter((u) => u._id !== storedUser._id);
         }
@@ -48,15 +56,12 @@ const People = () => {
       user.role?.toLowerCase().includes(search);
 
     // Filters
-    const matchesRole = role ? user.userType === role : true;
-    const matchesBatch = batch
-      ? user.batch?.toString().toLowerCase().includes(batch.toLowerCase())
-      : true;
+    const matchesRole = role ? user.role === role : true;
     const matchesGraduation = graduationYear
-      ? user.graduationYear?.toString().includes(graduationYear)
+      ? user.graduationYear?.toString() === graduationYear
       : true;
 
-    return matchesSearch && matchesRole && matchesBatch && matchesGraduation;
+    return matchesSearch && matchesRole && matchesGraduation;
   });
 
   // Ctrl+K shortcut focus
@@ -82,7 +87,7 @@ const People = () => {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-black">Discover People</h1>
         </div>
-        
+
         <div className="flex flex-wrap items-center gap-3 mb-8">
           {/* Search Box */}
           <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg flex-1 min-w-[260px] max-w-md relative shadow-sm">
@@ -111,7 +116,6 @@ const People = () => {
             resetFilters={() => {
               setQuery("");
               setRole("");
-              setBatch("");
               setGraduationYear("");
             }}
           />

@@ -33,11 +33,11 @@ const UserCard = ({ user, currentUser }) => {
               : "bg-purple-100 text-purple-700"
           }`}
         >
-          {user.userType}
+          {user.role}
         </span>
 
         {
-          user.userType === "alumni" && (
+          user.role === "alumni" || user.role === "student" && (
             <span
           className={`inline-block px-2 py-0.5 mt-1 text-xs rounded-full ${
             user.userType === "student"
@@ -53,12 +53,17 @@ const UserCard = ({ user, currentUser }) => {
         }
         </div>
 
-        {user.userType === "student" && (
+        {user.role === "student" && (
           <p className="text-gray-600 mt-1 text-sm">{user.department}</p>
         )}
 
-        {user.userType === "alumni" && (
-          <p className="text-gray-600 mt-1 text-sm">{user.currentPosition} at {user.company}</p>
+        {user.role === "teacher" && (
+          <p className="text-gray-600 mt-1 text-sm">{user.department}</p>
+        )}
+
+        {user.role === "alumni" && (
+          // <p className="text-gray-600 mt-1 text-sm">{user.currentPosition} at {user.company}</p>
+          <p className="text-gray-600 mt-2 text-sm">currentPosition at company</p>
         )}
 
         {user.bio && (

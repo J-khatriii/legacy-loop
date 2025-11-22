@@ -15,7 +15,7 @@ import AdminSendMessage from "./pages/admin/Messages";
 import AdminProfile from "./pages/admin/AdminProfile";
 import AlumniProfile from "./pages/AlumniProfile";
 
-import PublicRoute from "./routes/PublicRoute";
+import PublicRoute from "./routes/PublicRoute"; 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminStatistics from "./pages/admin/AdminStatistics";
 
@@ -23,6 +23,7 @@ const App = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const isAuthed = !!user;
 
+  console.log("JWT Token:", user?.token);
   return (
     <>
       <Toaster position="top-right" />
@@ -74,9 +75,7 @@ const App = () => {
           <Route path="create-post" element={<CreatePost />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="settings" element={<Settings />} />
-
           <Route path="announcement" element={<AdminSendMessage />} />
-
           <Route path="reporting" element={<AdminStatistics />} />
 
           {/* Conditional Profile */}
@@ -89,7 +88,7 @@ const App = () => {
                 <AdminProfile />
               ) : (
                 <Profile />
-              ) // default for student or any other role
+              )
             }
           />
         </Route>
