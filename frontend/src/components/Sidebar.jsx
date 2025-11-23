@@ -26,6 +26,15 @@ const getNavItems = (role) => {
     { divider: true },
   ];
 
+  if (role === "alumni" || role === "student") {
+    baseItems.push({
+      label: "Annoucements",
+      href: "/app/announcements",
+      icon: Megaphone,
+    });
+    baseItems.push({ divider: true });
+  }
+
   if (role === "alumni" || role === "admin") {
     baseItems.push({
       label: "Create Post",
@@ -195,7 +204,7 @@ const Sidebar = () => {
                 <p className="text-sm font-medium text-gray-800 truncate">
                   {user.name}
                 </p>
-                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                {/* <p className="text-xs text-gray-500 truncate">{user.email}</p> */}
               </div>
               <button
                 onClick={(e) => {

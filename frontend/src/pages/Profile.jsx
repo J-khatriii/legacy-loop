@@ -11,6 +11,9 @@ import {
   Edit,
   X,
 } from "lucide-react";
+import { useParams } from "react-router-dom";   // <-- ADD THIS
+import axios from "axios";   
+import { assets } from "../assets/assets";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -28,28 +31,55 @@ const Profile = () => {
   const [connections, setConnections] = useState([]);
 
   // Fetch logged-in user (and posts) from localStorage
-  useEffect(() => {
-    const localUser = JSON.parse(localStorage.getItem("user"));
-    const localSaved = JSON.parse(localStorage.getItem("savedPosts")) || [];
-    const localLiked = JSON.parse(localStorage.getItem("likedPosts")) || [];
-    const localConnections = JSON.parse(localStorage.getItem("connections")) || [];
+  // useEffect(() => {
+  //   const localUser = JSON.parse(localStorage.getItem("user"));
+  //   const localSaved = JSON.parse(localStorage.getItem("savedPosts")) || [];
+  //   const localLiked = JSON.parse(localStorage.getItem("likedPosts")) || [];
+  //   const localConnections = JSON.parse(localStorage.getItem("connections")) || [];
 
-    if (localUser) {
-      const formattedUser = {
-        ...localUser,
-        avatar:
-          localUser.avatar ||
-          `https://i.pravatar.cc/150?img=6=${localUser.name}`,
-        cover_photo: localUser.cover_photo || null,
-      };
+  //   if (localUser) {
+  //     const formattedUser = {
+  //       ...localUser,
+  //       avatar:
+  //         localUser.avatar ||
+  //         `https://i.pravatar.cc/150?img=6=${localUser.name}`,
+  //       cover_photo: localUser.cover_photo || null,
+  //     };
 
-      setUser(formattedUser);
-      setSkills(localUser.skills || ["React", "JavaScript"]);
-      setSavedPosts(localSaved);
-      setLikedPosts(localLiked);
-      setConnections(localConnections);
+  //     setUser(formattedUser);
+  //     setSkills(localUser.skills || ["React", "JavaScript"]);
+  //     setSavedPosts(localSaved);
+  //     setLikedPosts(localLiked);
+  //     setConnections(localConnections);
+  //   }
+  // }, []);
+
+  const { profileId } = useParams();
+
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("user"))?.token;
+
+      if (profileId) {
+        const res = await axios.get(
+          `http://localhost:4000/api/users/${profileId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setUser(res.data.user);
+      } else {
+        // ---- Viewing OWN profile ----
+        const localUser = JSON.parse(localStorage.getItem("user"));
+        setUser(localUser);
+      }
+    } catch (err) {
+      console.error("Failed to load profile:", err);
     }
-  }, []);
+  };
+
+  fetchUser();
+}, [profileId]);
+
 
   // Add or remove skills
   const addSkill = () => {
@@ -98,7 +128,7 @@ const Profile = () => {
             {/* Avatar */}
             <div className="relative w-32 h-32 shrink-0">
               <img
-                src={avatar || user.avatar}
+                src={assets.profile}
                 alt="profile"
                 className="w-32 h-32 rounded-full border-4 border-white object-cover"
               />

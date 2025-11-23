@@ -1,6 +1,14 @@
 import { MapPin, MessageCircle, Plus, UserPlus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const UserCard = ({ user, currentUser }) => {
+
+  const navigate = useNavigate();
+
+  const openProfile = () => {
+    navigate(`/app/profile/${user._id}`);
+  }
+
   const handleFollow = async () => {
     console.log("Follow clicked for:", user.name);
     // TODO: axios.post(`/api/follow/${user._id}`, {}, { headers: { Authorization: token } })
@@ -13,7 +21,7 @@ const UserCard = ({ user, currentUser }) => {
 
   return (
     <div className="p-4 pt-6 flex flex-col justify-between w-72 shadow-lg border border-gray-200 rounded-xl bg-white hover:shadow-lg transition-all duration-300">
-      <div className="text-center">
+      <div className="text-center cursor-pointer" onClick={openProfile}>
         <img
           src={
             user.profilePic ||

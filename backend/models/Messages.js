@@ -1,15 +1,21 @@
 import mongoose from "mongoose";
 
-const MessageSchema = new mongoose.Schema({
-  thread: { type: mongoose.Schema.Types.ObjectId, ref: 'Thread', required: true, index: true },
-  sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  text: { type: String },
-  attachments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Media' }],
-  readBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  editedAt: Date,
-  deleted: { type: Boolean, default: false }
-}, { timestamps: true });
+const attachmentSchema = new mongoose.Schema({
+  url: String,
+  type: { type: String, enum: ["image", "video", "file"], default: "file" },
+});
 
-const Message = mongoose.model('Message', MessageSchema);
+const messageSchema = new mongoose.Schema(
+  {
+    sender: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    receiver: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    text: { type: String, required: true },
+    attachments: [attachmentSchema],
+    isRead: { type: Boolean, default: false },
+  },
+  { timestamps: true }
+);
+
+const Message =  mongoose.model("Message", messageSchema);
 
 export default Message;

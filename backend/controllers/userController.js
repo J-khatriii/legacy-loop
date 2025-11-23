@@ -13,6 +13,20 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+// get user by id
+export const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password"); // don't send password
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({ user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
 // Get current user data
 export const getUserData = async (req, res) => {
   try {
