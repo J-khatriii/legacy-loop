@@ -18,6 +18,8 @@ import AlumniProfile from "./pages/AlumniProfile";
 import PublicRoute from "./routes/PublicRoute"; 
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AdminStatistics from "./pages/admin/AdminStatistics";
+import Announcements from "./pages/Announcements";
+import AnnouncementDetail from "./pages/AnnouncementDetail";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -77,6 +79,8 @@ const App = () => {
           <Route path="settings" element={<Settings />} />
           <Route path="announcement" element={<AdminSendMessage />} />
           <Route path="reporting" element={<AdminStatistics />} />
+          <Route path="announcements" element={<Announcements />} />
+          <Route path="announcements/:id" element={<AnnouncementDetail />} />
 
           {/* Conditional Profile */}
           <Route
@@ -91,6 +95,7 @@ const App = () => {
               )
             }
           />
+          <Route path="profile/:profileId" element={<Profile />} />
         </Route>
 
         {/* catch-all */}

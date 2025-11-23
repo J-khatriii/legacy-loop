@@ -10,6 +10,7 @@ import {
   acceptConnectionRequest,
   rejectConnectionRequest,
   getUserConnections,
+  getUserById,
 } from "../controllers/userController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import { upload } from "../config/multer.js";
@@ -18,6 +19,7 @@ const userRouter = express.Router();
 
 userRouter.get("/all", getAllUsers);
 userRouter.get("/me", authMiddleware, getUserData);
+userRouter.get("/:id", authMiddleware, getUserById);
 userRouter.put("/me", authMiddleware, upload.fields([{ name: "profile", maxCount: 1 }, { name: "cover", maxCount: 1 }]), updateUserData);
 userRouter.post("/discover", authMiddleware, discoverUsers);
 userRouter.post("/follow", authMiddleware, followUser);
