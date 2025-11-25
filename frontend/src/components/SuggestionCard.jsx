@@ -25,7 +25,7 @@ const Suggestions = () => {
         avatar: assets.sample_profile,
       },
     ]);
-  };
+  }
 
   useEffect(() => {
     fetchSuggestions();
@@ -60,7 +60,7 @@ const Suggestions = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Suggestions;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { Eye, EyeOff, Star } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -18,7 +18,7 @@ const SignIn = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,21 +31,19 @@ const SignIn = () => {
       );
 
       toast.dismiss(loadingToast);
-      // Success toast
       toast.success(`Welcome back, ${res.data.user.name}!`);
 
       // localStorage.setItem("token", res.data.token);
       // localStorage.setItem("user", JSON.stringify(res.data.user));
       const userWithToken = { ...res.data.user, token: res.data.token };
-localStorage.setItem("user", JSON.stringify(userWithToken));
+      localStorage.setItem("user", JSON.stringify(userWithToken));
 
-      // Redirect
       navigate("/layout");
     } catch (err) {
       toast.dismiss();
       toast.error(err.response?.data?.message || "Invalid email or password");
     }
-  };
+  }
 
   return (
     <div>
@@ -59,16 +57,9 @@ localStorage.setItem("user", JSON.stringify(userWithToken));
               alt="Legacy Loop"
               className="h-8 mb-10 mx-auto"
             />
-
-            {/* <p className="text-2xl md:text-3xl font-medium text-gray-900 mb-8 leading-snug">
-              We've been using <span className="font-semibold">Untitled</span>{" "}
-              to kick start every new project and can't imagine working without
-              it.
-            </p> */}
             <p className="text-2xl md:text-3xl font-medium text-gray-900 mb-8 leading-snug">
               One Loop. Endless Connections.
             </p>
-
             <p className="text-gray-600 leading-relaxed">
                 Empower your campus community. Legacy Loop bridges{" "}
                 <span className="font-medium text-gray-800">
@@ -77,29 +68,6 @@ localStorage.setItem("user", JSON.stringify(userWithToken));
                 — creating a continuous circle of mentorship, opportunity, and
                 growth that strengthens every generation.
               </p>
-
-            {/* <div className="flex flex-col items-center">
-              <img
-                src={assets.sample_profile}
-                alt="User"
-                className="h-14 w-14 rounded-full mb-3 object-cover"
-              />
-              <p className="font-semibold text-gray-900">Pippa Wilkinson</p>
-              <p className="text-sm text-gray-500 mb-2">
-                Head of Design, Layers
-              </p>
-            </div>
-
-            <div className="flex justify-center">
-              {Array(5)
-                .fill(0)
-                .map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 text-amber-400 fill-amber-400"
-                  />
-                ))}
-            </div> */}
 
             {/* <footer className="text-gray-400 text-xs mt-10">
               © Legacy Loop
@@ -210,7 +178,7 @@ localStorage.setItem("user", JSON.stringify(userWithToken));
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default SignIn;

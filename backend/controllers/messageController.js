@@ -25,7 +25,7 @@ export const sseController = (req, res) => {
     delete connections[userId];
     console.log("Client disconnected:", userId);
   });
-};
+}
 
 // Send Message
 export const sendMessage = async (req, res) => {
@@ -81,7 +81,7 @@ export const sendMessage = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Get Chat Messages
 export const getChatMessages = async (req, res) => {
@@ -107,7 +107,7 @@ export const getChatMessages = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Get User Recent Messages
 export const getUserRecentMessages = async (req, res) => {
@@ -123,7 +123,7 @@ export const getUserRecentMessages = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Delete a Message
 export const deleteMessage = async (req, res) => {
@@ -147,7 +147,7 @@ export const deleteMessage = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Edit a Message
 export const editMessage = async (req, res) => {
@@ -174,7 +174,7 @@ export const editMessage = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Mark All Messages as Read
 export const markMessagesRead = async (req, res) => {
@@ -191,7 +191,7 @@ export const markMessagesRead = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Get Unread Counts
 export const getUnreadCount = async (req, res) => {
@@ -213,7 +213,7 @@ export const getUnreadCount = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Get Attachments Only
 export const getAttachments = async (req, res) => {
@@ -234,4 +234,4 @@ export const getAttachments = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}

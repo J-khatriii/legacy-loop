@@ -25,7 +25,7 @@ const Layout = () => {
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
-  };
+  }
 
   useEffect(() => {
     fetchPosts();
@@ -80,7 +80,7 @@ const Layout = () => {
         />
       </aside>
     </div>
-  );
-};
+  )
+}
 
 export default Layout;

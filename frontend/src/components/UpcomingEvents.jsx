@@ -42,7 +42,7 @@ const events = [
     location: "Tom's Garden",
     icon: <FaTheaterMasks />,
   },
-];
+]
 
 const UpcomingEvents = () => {
   return (
@@ -64,7 +64,7 @@ const UpcomingEvents = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default UpcomingEvents;

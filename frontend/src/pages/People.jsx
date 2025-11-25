@@ -8,7 +8,6 @@ const People = () => {
   const [query, setQuery] = useState("");
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-
   const [role, setRole] = useState("");
   const [batch, setBatch] = useState("");
   const [graduationYear, setGraduationYear] = useState("");
@@ -18,16 +17,6 @@ const People = () => {
       try {
         const storedUser = JSON.parse(localStorage.getItem("user"));
         setCurrentUser(storedUser);
-
-        // const res = await axios.get("http://localhost:4000/api/users/all");
-        // let allUsers = res.data;
-
-        // // Filter out self
-        // if (storedUser) {
-        //   allUsers = allUsers.filter((u) => u._id !== storedUser._id);
-        // }
-
-        // setUsers(allUsers);
 
         const res = await axios.get("http://localhost:4000/api/users/all");
         let allUsers = Array.isArray(res.data.users) ? res.data.users : [];
@@ -40,7 +29,7 @@ const People = () => {
       } catch (error) {
         console.error("Error fetching all users:", error);
       }
-    };
+    }
 
     fetchUsers();
   }, []);
@@ -75,7 +64,7 @@ const People = () => {
           input.select();
         }
       }
-    };
+    }
 
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -133,7 +122,7 @@ const People = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default People;

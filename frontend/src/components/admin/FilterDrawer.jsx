@@ -39,13 +39,13 @@ const FilterDrawer = ({ open, onClose, filters = {}, setFilters, audience = ["al
       if (!base.includes("custom")) base.push("custom");
       return base;
     });
-  };
+  }
 
   const clearAll = () => {
     setFilters({});
     setAudience(["all"]);
     setSearch("");
-  };
+  }
 
   const searchLower = search.toLowerCase();
 
@@ -76,8 +76,8 @@ const FilterDrawer = ({ open, onClose, filters = {}, setFilters, audience = ["al
           </button>
         ))}
       </Section>
-    );
-  };
+    )
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 overflow-auto">
@@ -144,7 +144,7 @@ const FilterDrawer = ({ open, onClose, filters = {}, setFilters, audience = ["al
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default FilterDrawer;

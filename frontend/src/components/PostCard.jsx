@@ -30,7 +30,7 @@ const PostCard = ({ post, currentUser, refreshFeed }) => {
     } catch (err) {
       console.error("Error liking post:", err);
     }
-  };
+  }
 
   return (
     <div className="bg-white rounded-lg shadow p-4 space-y-4 w-full max-w-xl">
@@ -117,7 +117,7 @@ const PostCard = ({ post, currentUser, refreshFeed }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default PostCard;

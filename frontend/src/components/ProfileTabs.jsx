@@ -8,7 +8,7 @@ const ProfileTabs = () => {
     { id: "posts", label: "Posts" },
     { id: "work", label: "Work Experience" },
     { id: "details", label: "Alumni Details" },
-  ];
+  ]
 
   return (
     <div className="max-w-4xl mx-auto mt-8 px-4">
@@ -107,7 +107,7 @@ const ProfileTabs = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default ProfileTabs;

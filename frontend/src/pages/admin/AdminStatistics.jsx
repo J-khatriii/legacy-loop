@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
+import { User, Users, BookOpen, Megaphone } from "lucide-react";
 import {
-  User, Users, BookOpen, Megaphone
-} from "lucide-react";
-
-import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, ResponsiveContainer, LineChart, Line, Legend
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  Legend,
 } from "recharts";
 
 const userStats = {
@@ -12,13 +20,13 @@ const userStats = {
   students: 700,
   alumni: 300,
   teachers: 200,
-};
+}
 
 const audienceData = [
   { name: "Students", value: 700 },
   { name: "Alumni", value: 300 },
   { name: "Teachers", value: 200 },
-];
+]
 
 const COLORS = ["#60A5FA", "#34D399", "#A78BFA"];
 
@@ -29,14 +37,14 @@ const announcementsOverTime = [
   { month: "Apr", count: 6 },
   { month: "May", count: 10 },
   { month: "Jun", count: 14 },
-];
+]
 
 const filterStats = [
   { name: "1st Year", value: 150 },
   { name: "2nd Year", value: 200 },
   { name: "3rd Year", value: 180 },
   { name: "4th Year", value: 170 },
-];
+]
 
 const AdminStatistics = () => {
   const [users, setUsers] = useState(userStats);
@@ -49,57 +57,57 @@ const AdminStatistics = () => {
     <div className="h-screen flex flex-col">
       {/* SCROLL CONTAINER */}
       <div className="flex-1 overflow-y-auto no-scrollbar p-6 bg-gray-50">
-
-        <h1 className="text-2xl font-bold mb-6">Admin Reporting & Statistics</h1>
+        <h1 className="text-2xl font-bold mb-6">
+          Admin Reporting & Statistics
+        </h1>
 
         {/* Summary Cards */}
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+          {/* Total Users */}
+          <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
+            <Users size={28} className="text-blue-500" />
+            <p className="text-gray-500 text-sm">Total Users</p>
+            <h2 className="text-xl font-bold">{users.totalUsers}</h2>
+          </div>
 
-  {/* Total Users */}
-  <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
-    <Users size={28} className="text-blue-500" />
-    <p className="text-gray-500 text-sm">Total Users</p>
-    <h2 className="text-xl font-bold">{users.totalUsers}</h2>
-  </div>
+          {/* Students */}
+          <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
+            <User size={28} className="text-green-500" />
+            <p className="text-gray-500 text-sm">Students</p>
+            <h2 className="text-xl font-bold">{users.students}</h2>
+          </div>
 
-  {/* Students */}
-  <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
-    <User size={28} className="text-green-500" />
-    <p className="text-gray-500 text-sm">Students</p>
-    <h2 className="text-xl font-bold">{users.students}</h2>
-  </div>
+          {/* Teachers */}
+          <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
+            <BookOpen size={28} className="text-purple-500" />
+            <p className="text-gray-500 text-sm">Teachers</p>
+            <h2 className="text-xl font-bold">{users.teachers}</h2>
+          </div>
 
-  {/* Teachers */}
-  <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
-    <BookOpen size={28} className="text-purple-500" />
-    <p className="text-gray-500 text-sm">Teachers</p>
-    <h2 className="text-xl font-bold">{users.teachers}</h2>
-  </div>
+          {/* Alumni */}
+          <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
+            <Users size={28} className="text-indigo-500" />
+            <p className="text-gray-500 text-sm">Alumni</p>
+            <h2 className="text-xl font-bold">{users.alumni}</h2>
+          </div>
 
-  {/* Alumni (NEW CARD) */}
-  <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
-    <Users size={28} className="text-indigo-500" />
-    <p className="text-gray-500 text-sm">Alumni</p>
-    <h2 className="text-xl font-bold">{users.alumni}</h2>
-  </div>
-
-  {/* Announcements */}
-  <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
-    <Megaphone size={28} className="text-yellow-500" />
-    <p className="text-gray-500 text-sm">Announcements</p>
-    <h2 className="text-xl font-bold">
-      {announcementsOverTime.reduce((a, b) => a + b.count, 0)}
-    </h2>
-  </div>
-
-</div>
-
+          {/* Announcements */}
+          <div className="bg-white p-6 rounded-xl shadow-md flex flex-col items-start gap-2">
+            <Megaphone size={28} className="text-yellow-500" />
+            <p className="text-gray-500 text-sm">Announcements</p>
+            <h2 className="text-xl font-bold">
+              {announcementsOverTime.reduce((a, b) => a + b.count, 0)}
+            </h2>
+          </div>
+        </div>
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Pie Chart */}
           <div className="bg-white p-6 rounded-xl shadow-md">
-            <h2 className="text-lg font-semibold mb-4">Audience Distribution</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              Audience Distribution
+            </h2>
 
             <div className="h-[260px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -125,7 +133,9 @@ const AdminStatistics = () => {
 
           {/* Line Chart */}
           <div className="bg-white p-6 rounded-xl shadow-md">
-            <h2 className="text-lg font-semibold mb-4">Announcements Over Time</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              Announcements Over Time
+            </h2>
 
             <div className="h-[260px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -134,7 +144,12 @@ const AdminStatistics = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="count" stroke="#3B82F6" strokeWidth={2} />
+                  <Line
+                    type="monotone"
+                    dataKey="count"
+                    stroke="#3B82F6"
+                    strokeWidth={2}
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -142,7 +157,9 @@ const AdminStatistics = () => {
 
           {/* Bar Chart */}
           <div className="bg-white p-6 rounded-xl shadow-md">
-            <h2 className="text-lg font-semibold mb-4">Filters / Departments</h2>
+            <h2 className="text-lg font-semibold mb-4">
+              Filters / Departments
+            </h2>
 
             <div className="h-[260px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -172,9 +189,21 @@ const AdminStatistics = () => {
 
             <tbody>
               {[
-                { date: "2025-11-10", type: "Announcement", details: "Sent to all students" },
-                { date: "2025-11-12", type: "User Signup", details: "New alumni registered" },
-                { date: "2025-11-14", type: "Announcement", details: "Custom filters used" },
+                {
+                  date: "2025-11-10",
+                  type: "Announcement",
+                  details: "Sent to all students",
+                },
+                {
+                  date: "2025-11-12",
+                  type: "User Signup",
+                  details: "New alumni registered",
+                },
+                {
+                  date: "2025-11-14",
+                  type: "Announcement",
+                  details: "Custom filters used",
+                },
               ].map((row, idx) => (
                 <tr key={idx} className="border-b hover:bg-gray-50">
                   <td className="px-4 py-2">{row.date}</td>
@@ -185,10 +214,9 @@ const AdminStatistics = () => {
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default AdminStatistics;

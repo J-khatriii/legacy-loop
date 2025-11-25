@@ -11,11 +11,11 @@ const CreatePost = () => {
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     setImages([...images, ...files]);
-  };
+  }
 
   const removeImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
-  };
+  }
 
   const handleSubmit = async () => {
     if (!title.trim() || !content.trim()) return alert("Title & content required.");
@@ -40,7 +40,7 @@ const CreatePost = () => {
     } catch (err) {
       console.error("Error creating post:", err);
     }
-  };
+  }
 
   return (
     <div className="h-screen flex flex-col">
@@ -141,14 +141,14 @@ const CreatePost = () => {
                 setTags("");
                 setImages([]);
               }}
-              className="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition shadow-sm"
+              className="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 font-medium hover:bg-gray-300 transition shadow-sm cursor-pointer"
             >
               Cancel
             </button>
 
             <button
               onClick={handleSubmit}
-              className="px-5 py-2 rounded-lg bg-black text-white font-semibold hover:bg-black/90 transition shadow-sm"
+              className="px-5 py-2 rounded-lg bg-black text-white font-semibold hover:bg-black/90 transition shadow-sm cursor-pointer"
             >
               Publish Post
             </button>
@@ -156,7 +156,7 @@ const CreatePost = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default CreatePost;

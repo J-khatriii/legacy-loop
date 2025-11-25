@@ -12,12 +12,12 @@ const UserCard = ({ user, currentUser }) => {
   const handleFollow = async () => {
     console.log("Follow clicked for:", user.name);
     // TODO: axios.post(`/api/follow/${user._id}`, {}, { headers: { Authorization: token } })
-  };
+  }
 
   const handleConnectionRequest = async () => {
     console.log("Send connection request to:", user.name);
     // TODO: axios.post(`/api/connect/${user._id}`, {}, { headers: { Authorization: token } })
-  };
+  }
 
   return (
     <div className="p-4 pt-6 flex flex-col justify-between w-72 shadow-lg border border-gray-200 rounded-xl bg-white hover:shadow-lg transition-all duration-300">
@@ -120,7 +120,7 @@ const UserCard = ({ user, currentUser }) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default UserCard;

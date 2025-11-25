@@ -20,19 +20,19 @@ const Settings = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-  };
+  }
 
   const handleSave = () => {
     console.log("Settings Saved:", formData);
     // TODO: integrate with backend
-  };
+  }
 
   const tabs = [
     { id: "profile", icon: <User className="w-5 h-5" />, label: "Profile" },
     { id: "security", icon: <Lock className="w-5 h-5" />, label: "Security" },
     { id: "notifications", icon: <Bell className="w-5 h-5" />, label: "Notifications" },
     { id: "appearance", icon: <Palette className="w-5 h-5" />, label: "Appearance" },
-  ];
+  ]
 
   return (
     <div className="h-screen flex bg-gray-50">
@@ -176,7 +176,7 @@ const Settings = () => {
         <div className="mt-10 flex justify-end">
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 bg-black hover:bg-black/75 text-white px-6 py-2 rounded-md shadow transition active:scale-95"
+            className="flex items-center gap-2 bg-black hover:bg-black/75 text-white px-3 py-2 rounded-md shadow transition active:scale-95"
           >
             <Save className="w-4 h-4" />
             Save Changes
@@ -184,7 +184,7 @@ const Settings = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Settings;

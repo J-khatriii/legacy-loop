@@ -29,18 +29,18 @@ const AdminProfile = () => {
     usersManaged: 120,
     messagesSent: 45,
     followers: 300,
-  };
+  }
 
   const activityLogs = [
     { id: 1, action: "Sent system announcement", date: "2025-11-15" },
     { id: 2, action: "Added new alumni user", date: "2025-11-14" },
     { id: 3, action: "Edited user profile: John Doe", date: "2025-11-13" },
-  ];
+  ]
 
   const managedUsers = [
     { id: 1, name: "John Doe", role: "alumni", email: "john@example.com" },
     { id: 2, name: "Jane Smith", role: "faculty", email: "jane@example.com" },
-  ];
+  ]
 
   return (
     <div className="h-full relative overflow-y-scroll bg-gray-50 p-6">
@@ -214,7 +214,7 @@ const AdminProfile = () => {
 
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default AdminProfile;

@@ -20,7 +20,7 @@ const SignUp = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,14 +32,16 @@ const SignUp = () => {
       );
       toast.dismiss(loadingToast);
       toast.success("Welcome to Legacy Loop 🎓");
+
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
+      
       navigate("/layout");
     } catch (err) {
       toast.dismiss();
       toast.error(err.response?.data?.message || "Signup failed. Try again!");
     }
-  };
+  }
 
   return (
     <div className="flex flex-col md:flex-row bg-white h-screen overflow-hidden">
@@ -235,7 +237,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default SignUp;

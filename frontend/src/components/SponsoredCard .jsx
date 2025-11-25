@@ -10,7 +10,7 @@ const SponsoredCard = ({ title, image, category, description }) => {
       <p className="text-slate-600">{category}</p>
       <p className="text-slate-400">{description}</p>
     </div>
-  );
-};
+  )
+}
 
 export default SponsoredCard;
