@@ -18,7 +18,7 @@ const EditProfileModal = ({ open, onClose, user, onSave }) => {
 
   const handleChange = (key, value) => {
     setForm({ ...form, [key]: value });
-  };
+  }
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur flex items-center justify-center z-999">
@@ -139,7 +139,7 @@ const EditProfileModal = ({ open, onClose, user, onSave }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default EditProfileModal;

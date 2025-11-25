@@ -1,67 +1,74 @@
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import moment from "moment";
-import { ArrowLeft, Megaphone } from "lucide-react";
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 
 const AnnouncementDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState(null);
+
+  const [announcement, setAnnouncement] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const fetchAnnouncement = async () => {
+    try {
+      const res = await axios.get(`http://localhost:4000/api/announcements/${id}`, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      setAnnouncement(res.data);
+    } catch (error) {
+      console.error("Error loading announcement:", error);
+    }
+  }
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("announcements")) || [];
-    const found = saved.find((item) => item.id === Number(id));
-    setData(found);
+    fetchAnnouncement();
+  }, []);
 
-    // mark as read automatically
-    if (found && !found.read) {
-      const updated = saved.map((i) =>
-        i.id === Number(id) ? { ...i, read: true } : i
-      );
-      localStorage.setItem("announcements", JSON.stringify(updated));
-    }
-  }, [id]);
-
-  if (!data)
-    return <p className="text-center py-10 text-gray-500">Announcement not found</p>;
+  if (!announcement) {
+    return (
+      <div className="p-6 text-center text-gray-500">Loading...</div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-3xl mx-auto bg-white shadow rounded-xl p-6">
+      <div className="max-w-3xl mx-auto bg-white shadow rounded-xl p-6 max-h-screen overflow-y-auto">
         
-        {/* Back */}
+        {/* Back Button */}
         <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-gray-600 gap-2 mb-4 hover:text-gray-800"
+          onClick={() => navigate("/app/announcements")}
+          className="mb-4 flex items-center gap-2 text-sm text-gray-600 hover:text-black"
         >
           <ArrowLeft size={18} /> Back
         </button>
 
-        {/* Header */}
-        <div className="flex items-center gap-2 mb-1">
-          <Megaphone className="text-amber-600" size={22} />
-          <h1 className="text-xl font-bold text-gray-800">{data.title}</h1>
-        </div>
+        {/* Title */}
+        <h1 className="text-2xl font-bold text-gray-900">
+          {announcement.title}
+        </h1>
 
-        <p className="text-xs text-gray-500 mb-4">
-          {moment(data.time).format("MMMM Do, YYYY • h:mm A")}
+        {/* Time */}
+        <p className="text-sm text-gray-500 mt-1">
+          {moment(announcement.createdAt).format("MMMM Do, YYYY • h:mm A")}
         </p>
 
         {/* Media */}
-        {data.media && (
+        {announcement.media && (
           <img
-            src={data.media}
-            className="w-full h-64 object-cover rounded-lg mb-4"
+            src={announcement.media}
+            className="w-full rounded-lg my-4"
           />
         )}
 
-        {/* Full Text */}
-        <p className="text-gray-700 leading-7 whitespace-pre-line">
-          {data.fullText || data.message}
+        {/* Full text */}
+        <p className="text-gray-800 whitespace-pre-wrap leading-relaxed mt-4">
+          {announcement.fullText}
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default AnnouncementDetail;

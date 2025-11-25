@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { dummyRecentMessagesData } from "../assets/assets";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { dummyRecentMessagesData } from "../assets/assets";
 
 const RecentMessages = () => {
   const [messages, setMessages] = useState([]);
 
   const fetchRecentMessages = async () => {
     setMessages(dummyRecentMessagesData);
-  };
+  }
 
   useEffect(() => {
     fetchRecentMessages();
@@ -51,7 +51,7 @@ const RecentMessages = () => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default RecentMessages;

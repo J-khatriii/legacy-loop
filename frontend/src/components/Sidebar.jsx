@@ -1,3 +1,6 @@
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { assets } from "../assets/assets";
 import {
   Home,
   PieChart,
@@ -13,9 +16,6 @@ import {
   ArrowLeftToLine,
   Megaphone,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { assets } from "../assets/assets";
 
 const getNavItems = (role) => {
   const baseItems = [
@@ -24,7 +24,7 @@ const getNavItems = (role) => {
     { label: "Messages", href: "/app/messages", icon: MessageCircle },
     { label: "Notifications", href: "/app/notifications", icon: Bell },
     { divider: true },
-  ];
+  ]
 
   if (role === "alumni" || role === "student") {
     baseItems.push({
@@ -67,7 +67,7 @@ const getNavItems = (role) => {
   );
 
   return baseItems;
-};
+}
 
 const Sidebar = () => {
   const location = useLocation();
@@ -85,7 +85,7 @@ const Sidebar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
-  };
+  }
 
   const navItems = getNavItems(user?.role);
 
@@ -95,7 +95,7 @@ const Sidebar = () => {
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      {/* --- Header Section --- */}
+      {/* Header Section */}
       <div
         className={`flex items-center ${
           collapsed ? "justify-center py-4" : "justify-between px-4 py-4"
@@ -103,13 +103,13 @@ const Sidebar = () => {
       >
         {/* Logo */}
         <div className="flex items-center gap-2">
-     <img
-  src={assets.logo}
-  alt="Logo"
-  className={`transition-all duration-300 ${
-    collapsed ? "w-8 h-8" : "w-10 h-10"
-  }`}
-/>
+            <img
+              src={assets.logo}
+              alt="Logo"
+              className={`transition-all duration-300 ${
+                collapsed ? "w-8 h-8" : "w-10 h-10"
+            }`}
+        />
 
           {!collapsed && (
             <h1 className="font-bold text-lg text-black tracking-tight">
@@ -130,7 +130,7 @@ const Sidebar = () => {
         )}
       </div>
 
-      {/* --- Expand Button (on right border when collapsed) --- */}
+      {/* Expand Button (on right border when collapsed) */}
       {collapsed && (
         <button
           onClick={() => setCollapsed(false)}
@@ -141,7 +141,7 @@ const Sidebar = () => {
         </button>
       )}
 
-      {/* --- Navigation --- */}
+      {/* Navigation */}
       <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1">
         {navItems.map((item, i) =>
           item.divider ? (
@@ -182,7 +182,7 @@ const Sidebar = () => {
         )}
       </div>
 
-      {/* --- User Info --- */}
+      {/* User Info */}
       {user && (
         <div
           className={`border-t border-gray-100 p-4 flex items-center gap-3 hover:bg-indigo-50 cursor-pointer transition ${
@@ -221,8 +221,7 @@ const Sidebar = () => {
         </div>
       )}
     </aside>
-  );
-};
+  )
+}
 
 export default Sidebar;
-

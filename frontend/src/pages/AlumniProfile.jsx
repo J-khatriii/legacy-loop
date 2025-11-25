@@ -159,7 +159,7 @@ const AlumniProfile = () => {
         <ProfileTabs />
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default AlumniProfile;

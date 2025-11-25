@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Search,
   Phone,
@@ -7,7 +8,6 @@ import {
   Send,
   EllipsisVertical,
 } from "lucide-react";
-import { useParams, useNavigate } from "react-router-dom";
 
 const sampleChats = [
   {
@@ -45,7 +45,7 @@ const sampleChats = [
     time: "5 mins ago",
     messages: [],
   },
-];
+]
 
 const formatDate = (dateStr) => {
   const d = new Date(dateStr);
@@ -55,7 +55,7 @@ const formatDate = (dateStr) => {
     day: "numeric",
     year: "numeric",
   });
-};
+}
 
 const isSameDay = (a, b) =>
   new Date(a).toDateString() === new Date(b).toDateString();
@@ -88,7 +88,7 @@ const Messages = () => {
       if (e.key === "Escape" && id) {
         navigate("/app/messages");
       }
-    };
+    }
     window.addEventListener("keydown", onEsc);
     return () => window.removeEventListener("keydown", onEsc);
   }, [id]);
@@ -100,7 +100,7 @@ const Messages = () => {
         e.preventDefault();
         document.getElementById("searchBox")?.focus();
       }
-    };
+    }
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
@@ -301,7 +301,7 @@ const Messages = () => {
         )}
       </main>
     </div>
-  );
-};
+  )
+}
 
 export default Messages;

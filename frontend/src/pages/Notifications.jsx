@@ -5,7 +5,6 @@ import { Bell, CheckCircle, Trash2, AlertCircle, UserPlus } from "lucide-react";
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
 
-  // Load notifications from localStorage or use dummy data
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("notifications"));
     if (saved && saved.length > 0) {
@@ -46,27 +45,27 @@ const Notifications = () => {
     );
     setNotifications(updated);
     localStorage.setItem("notifications", JSON.stringify(updated));
-  };
+  }
 
   // Mark all as read
   const markAllAsRead = () => {
     const updated = notifications.map((n) => ({ ...n, read: true }));
     setNotifications(updated);
     localStorage.setItem("notifications", JSON.stringify(updated));
-  };
+  }
 
   // Delete one notification
   const deleteNotification = (id) => {
     const updated = notifications.filter((n) => n.id !== id);
     setNotifications(updated);
     localStorage.setItem("notifications", JSON.stringify(updated));
-  };
+  }
 
   // Clear all notifications
   const clearAll = () => {
     setNotifications([]);
     localStorage.removeItem("notifications");
-  };
+  }
 
   const getIcon = (type) => {
     switch (type) {
@@ -79,7 +78,7 @@ const Notifications = () => {
       default:
         return <Bell className="text-gray-400" size={18} />;
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -94,13 +93,13 @@ const Notifications = () => {
             <div className="flex gap-2">
               <button
                 onClick={markAllAsRead}
-                className="text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                className="text-sm bg-black text-white px-4 py-2 rounded-lg hover:bg-black/50 transition cursor-pointer"
               >
                 Mark All Read
               </button>
               <button
                 onClick={clearAll}
-                className="text-sm bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition"
+                className="text-sm bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition cursor-pointer"
               >
                 Clear All
               </button>
@@ -112,7 +111,7 @@ const Notifications = () => {
         <div className="bg-white rounded-xl shadow p-6 space-y-4">
           {notifications.length === 0 ? (
             <p className="text-gray-500 text-center py-10">
-              No notifications yet 🎉
+              No notifications yet
             </p>
           ) : (
             notifications.map((n) => (
@@ -159,7 +158,7 @@ const Notifications = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Notifications;

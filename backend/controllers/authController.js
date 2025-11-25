@@ -58,7 +58,7 @@ export const signup = async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Signup error" });
   }
-};
+}
 
 export const signin = async (req, res) => {
   try {
@@ -85,4 +85,4 @@ export const signin = async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Signin error" });
   }
-};
+}

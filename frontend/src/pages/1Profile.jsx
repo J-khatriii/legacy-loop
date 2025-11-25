@@ -48,7 +48,7 @@ const Chip = ({ children }) => (
 );
 
 // ====== MAIN PAGE ======
-const Profile = () => {
+const ProfileDemo = () => {
   const [user, setUser] = useState(initialUser);
   const [banner, setBanner] = useState(user.bannerUrl);
   const [avatar, setAvatar] = useState(user.avatarUrl);
@@ -837,4 +837,4 @@ const Toggle = ({ label, checked, onChange }) => (
   </label>
 );
 
-export default Profile;
+export default ProfileDemo;

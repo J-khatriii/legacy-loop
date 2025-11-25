@@ -1,6 +1,6 @@
-import User from "../models/User.js";
-import imagekit from "../config/imagekit.js";
 import fs from "fs";
+import imagekit from "../config/imagekit.js";
+import User from "../models/User.js";
 
 // Get all users
 export const getAllUsers = async (req, res) => {
@@ -11,7 +11,7 @@ export const getAllUsers = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: "Server error fetching all users" });
   }
-};
+}
 
 // get user by id
 export const getUserById = async (req, res) => {
@@ -24,7 +24,7 @@ export const getUserById = async (req, res) => {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
-};
+}
 
 
 // Get current user data
@@ -39,7 +39,7 @@ export const getUserData = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Update user profile
 export const updateUserData = async (req, res) => {
@@ -94,7 +94,7 @@ export const updateUserData = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Discover users
 export const discoverUsers = async (req, res) => {
@@ -116,7 +116,7 @@ export const discoverUsers = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Follow user
 export const followUser = async (req, res) => {
@@ -141,7 +141,7 @@ export const followUser = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Unfollow user
 export const unfollowUser = async (req, res) => {
@@ -164,7 +164,7 @@ export const unfollowUser = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Send connection request
 export const sendConnectionRequest = async (req, res) => {
@@ -189,7 +189,7 @@ export const sendConnectionRequest = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Accept connection request
 export const acceptConnectionRequest = async (req, res) => {
@@ -216,7 +216,7 @@ export const acceptConnectionRequest = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Reject connection request
 export const rejectConnectionRequest = async (req, res) => {
@@ -235,12 +235,12 @@ export const rejectConnectionRequest = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Get user connections (accepted + pending)
 export const getUserConnections = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user._id;
     const user = await User.findById(userId)
       .populate("connections", "name profileImage")
       .populate("followers", "name profileImage")
@@ -251,11 +251,11 @@ export const getUserConnections = async (req, res) => {
       success: true,
       connections: user.connections,
       followers: user.followers,
-      following: user.following,
+      following: user.following,  
       pendingRequests: user.pendingRequests,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}

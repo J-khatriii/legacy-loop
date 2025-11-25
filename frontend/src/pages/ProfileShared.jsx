@@ -1,8 +1,7 @@
-import React from "react";
 import { Camera } from "lucide-react";
 
 export const Cover = ({ coverUrl, onChangeCover }) => (
-  <div className="h-56 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-b-3xl relative">
+  <div className="h-56 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-b-3xl relative">
     {coverUrl ? (
       <img
         src={coverUrl}

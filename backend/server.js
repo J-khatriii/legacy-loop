@@ -19,11 +19,11 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRouter);
-app.use("api/messages", messageRouter);
-app.use("/api/announcement", announcementRouter);
+app.use("/api/messages", messageRouter);
+app.use("/api/announcements", announcementRouter);
 
 app.get("/", (req, res) => res.send("Server is running"));
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => console.log(`server is running on port: ${PORT}`))
+app.listen(PORT, () => console.log(`server is running on port: ${PORT}`));

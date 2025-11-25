@@ -4,5 +4,5 @@ export const allowRoles = (...roles) => {
       return res.status(403).json({ message: "You do not have permission" });
     }
     next();
-  };
-};
+  }
+}

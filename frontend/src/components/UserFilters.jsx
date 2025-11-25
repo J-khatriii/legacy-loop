@@ -18,7 +18,7 @@ const UserFilters = ({
     { label: "Student", value: "student" },
     { label: "Alumni", value: "alumni" },
     { label: "Admin", value: "admin" },
-  ];
+  ]
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -26,7 +26,7 @@ const UserFilters = ({
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
-    };
+    }
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -99,7 +99,7 @@ const UserFilters = ({
         Reset
       </button>
     </div>
-  );
-};
+  )
+}
 
 export default UserFilters;

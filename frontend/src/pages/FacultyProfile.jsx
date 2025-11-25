@@ -8,24 +8,12 @@ import {
   Calendar,
   Edit,
   Users,
-  Briefcase,
-  BookOpen,
   X,
   Plus,
   Check,
 } from "lucide-react";
 
-/**
- * FacultyProfile (rebuild - layout A)
- * - Banner -> avatar card -> sticky tabs -> tab content
- * - Fixed scrolling issues:
- *   • root uses min-h-screen + no overflow-hidden
- *   • reduced negative margin on card (-mt-12)
- *   • sticky tabs are placed *after* banner wrapper
- *   • modals are fixed with high z-index
- */
-
-export default function FacultyProfile() {
+const FacultyProfile = () => {
   const [admin, setAdmin] = useState(null);
   const [activeTab, setActiveTab] = useState("overview");
   const [banner, setBanner] = useState(null);
@@ -65,7 +53,7 @@ export default function FacultyProfile() {
     setAdmin(updated);
     const saved = JSON.parse(localStorage.getItem("adminProfile")) || {};
     localStorage.setItem("adminProfile", JSON.stringify({ ...saved, ...updated }));
-  };
+  }
 
   const addSkill = () => {
     const s = newSkill.trim();
@@ -76,13 +64,13 @@ export default function FacultyProfile() {
       localStorage.setItem("adminSkills", JSON.stringify(updated));
       setNewSkill("");
     }
-  };
+  }
 
   const removeSkill = (s) => {
     const updated = skills.filter((x) => x !== s);
     setSkills(updated);
     localStorage.setItem("adminSkills", JSON.stringify(updated));
-  };
+  }
 
   const addDept = () => {
     const d = newDept.trim();
@@ -93,13 +81,13 @@ export default function FacultyProfile() {
       localStorage.setItem("adminDepartments", JSON.stringify(updated));
       setNewDept("");
     }
-  };
+  }
 
   const removeDept = (d) => {
     const updated = managedDepartments.filter((x) => x !== d);
     setManagedDepartments(updated);
     localStorage.setItem("adminDepartments", JSON.stringify(updated));
-  };
+  }
 
   if (!admin)
     return (
@@ -110,18 +98,15 @@ export default function FacultyProfile() {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12 overflow-visible">
-      {/* ---------------------------
-          Banner + floating header card
-         --------------------------- */}
+      {/* Banner + floating header card */}
       <div className="relative">
-        <div className="h-64 md:h-72 lg:h-80 bg-gradient-to-r from-indigo-600 via-sky-500 to-rose-400 rounded-b-3xl shadow-xl overflow-hidden">
+        <div className="h-64 md:h-72 lg:h-80 bg-linear-to-r from-indigo-600 via-sky-500 to-rose-400 rounded-b-3xl shadow-xl overflow-hidden">
           {banner ? (
             <img src={banner} alt="banner" className="w-full h-full object-cover" />
           ) : null}
           <div className="absolute inset-0 bg-black/10 backdrop-blur-sm" />
         </div>
 
-        {/* floating header card (reduced negative margin to avoid scroll lock) */}
         <div className="max-w-5xl mx-auto px-6 -mt-12 relative z-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -129,7 +114,7 @@ export default function FacultyProfile() {
             transition={{ duration: 0.35 }}
             className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-6 flex flex-col md:flex-row md:items-center gap-6 border border-white/40"
           >
-            <div className="relative w-36 h-36 -mt-14 md:mt-0 flex-shrink-0">
+            <div className="relative w-36 h-36 -mt-14 md:mt-0 shrink-0">
               <img
                 src={avatar || admin.avatar}
                 alt="avatar"
@@ -193,9 +178,7 @@ export default function FacultyProfile() {
         </div>
       </div>
 
-      {/* ---------------------------
-          Sticky tabs (PLACED OUTSIDE banner wrapper - keeps scrolling stable)
-         --------------------------- */}
+      {/* Tabs */}
       <div className="sticky top-6 z-30">
         <div className="max-w-5xl mx-auto px-6">
           <div className="bg-white rounded-full shadow p-1 flex items-center gap-1 justify-center">
@@ -220,9 +203,7 @@ export default function FacultyProfile() {
         </div>
       </div>
 
-      {/* ---------------------------
-          Main content area
-         --------------------------- */}
+      {/* Main content area */}
       <div className="max-w-5xl mx-auto px-6 mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Overview */}
@@ -424,5 +405,7 @@ export default function FacultyProfile() {
         </div>
       )}
     </div>
-  );
+  )
 }
+
+export default FacultyProfile;

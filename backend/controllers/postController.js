@@ -1,8 +1,7 @@
+import fs from "fs";
+import imagekit from "../config/imagekit.js";
 import Post from "../models/Post.js";
 import User from "../models/User.js";
-import imagekit from "../config/imagekit.js";
-import fs from "fs";
-
 
 // Get all posts
 export const getAllPosts = async (req, res) => {
@@ -17,7 +16,7 @@ export const getAllPosts = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Create a new post
 export const createPost = async (req, res) => {
@@ -53,7 +52,7 @@ export const createPost = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Update a post
 export const updatePost = async (req, res) => {
@@ -98,7 +97,7 @@ export const updatePost = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Delete a post
 export const deletePost = async (req, res) => {
@@ -116,7 +115,7 @@ export const deletePost = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Like / Unlike a post
 export const toggleLike = async (req, res) => {
@@ -141,7 +140,7 @@ export const toggleLike = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Add a comment
 export const addComment = async (req, res) => {
@@ -162,7 +161,7 @@ export const addComment = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Delete a comment
 export const deleteComment = async (req, res) => {
@@ -187,7 +186,7 @@ export const deleteComment = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}
 
 // Fetch posts feed
 export const getFeed = async (req, res) => {
@@ -212,4 +211,4 @@ export const getFeed = async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
-};
+}

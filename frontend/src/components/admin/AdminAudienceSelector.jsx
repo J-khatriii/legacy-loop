@@ -7,7 +7,7 @@ const AudienceSelector = ({ audience = ["all"], setAudience = () => {} }) => {
     { id: "alumni", label: "Alumni", icon: GraduationCap },
     { id: "teachers", label: "Teachers", icon: Users },
     { id: "custom", label: "Custom", icon: Sliders },
-  ];
+  ]
 
   const toggle = (id) => {
     // make sure audience is array
@@ -33,7 +33,7 @@ const AudienceSelector = ({ audience = ["all"], setAudience = () => {} }) => {
 
     // if any explicit picks then ensure 'custom' not present (unless user chooses custom)
     setAudience(base.filter((x) => x !== "custom"));
-  };
+  }
 
   return (
     <div className="bg-white p-4 rounded-xl shadow-md space-y-3">
@@ -51,13 +51,13 @@ const AudienceSelector = ({ audience = ["all"], setAudience = () => {} }) => {
               <Icon size={16} />
               {label}
             </button>
-          );
+          )
         })}
       </div>
 
       <p className="text-xs text-gray-500">Tip: use "Custom" or open Filters to build a combined target.</p>
     </div>
-  );
-};
+  )
+}
 
 export default AudienceSelector;

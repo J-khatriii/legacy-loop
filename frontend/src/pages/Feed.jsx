@@ -9,7 +9,7 @@ const Feed = () => {
 
   const fetchFeeds = async () => {
     setFeeds(dummyPostsData);
-  };
+  }
 
   useEffect(() => {
     fetchFeeds();
@@ -50,7 +50,7 @@ const Feed = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default Feed;
