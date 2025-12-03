@@ -25,20 +25,14 @@ const SignIn = () => {
     try {
       const loadingToast = toast.loading("Signing in...");
 
-      const res = await axios.post(
-        "http://localhost:4000/api/auth/signin",
-        formData
-      );
-
+      const res = await axios.post("http://localhost:4000/api/auth/signin", formData);
       toast.dismiss(loadingToast);
       toast.success(`Welcome back, ${res.data.user.name}!`);
 
-      // localStorage.setItem("token", res.data.token);
-      // localStorage.setItem("user", JSON.stringify(res.data.user));
       const userWithToken = { ...res.data.user, token: res.data.token };
       localStorage.setItem("user", JSON.stringify(userWithToken));
 
-      navigate("/layout");
+      navigate("/app/layout");
     } catch (err) {
       toast.dismiss();
       toast.error(err.response?.data?.message || "Invalid email or password");
@@ -46,135 +40,136 @@ const SignIn = () => {
   }
 
   return (
-    <div>
-      <div className="min-h-screen flex flex-col md:flex-row bg-white">
-        {/* left side */}
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white">
+      {/* Left side - Hidden on mobile/tablet */}
+      <div className="hidden lg:flex flex-1 flex-col justify-center items-center text-center p-8 xl:p-16 bg-gray-100/90">
+        <div className="max-w-md w-full px-4">
+          <img
+            src={assets.logo}
+            alt="Legacy Loop"
+            className="h-6 sm:h-8 mb-8 lg:mb-10 mx-auto"
+          />
+          <p className="text-xl lg:text-2xl xl:text-3xl font-medium text-gray-900 mb-6 lg:mb-8 leading-snug">
+            One Loop. Endless Connections.
+          </p>
+          <p className="text-sm lg:text-base text-gray-600 leading-relaxed">
+            Empower your campus community. Legacy Loop bridges{" "}
+            <span className="font-medium text-gray-800">
+              students, alumni, and colleges
+            </span>{" "}
+            — creating a continuous circle of mentorship, opportunity, and
+            growth that strengthens every generation.
+          </p>
+        </div>
+      </div>
 
-        <div className="flex flex-1 flex-col justify-center items-center text-center p-8 md:p-16 max-md:hidden bg-gray-100/90">
-          <div className="max-w-md">
+      {/* Right side - Full width on mobile */}
+      <div className="flex-1 flex justify-center items-center p-6 sm:p-8 md:p-12 lg:p-16 min-h-screen">
+        <div className="w-full max-w-sm">
+          {/* Mobile logo - only shown on small screens */}
+          <div className="lg:hidden text-center mb-8">
             <img
               src={assets.logo}
               alt="Legacy Loop"
-              className="h-8 mb-10 mx-auto"
+              className="h-6 mx-auto mb-4"
             />
-            <p className="text-2xl md:text-3xl font-medium text-gray-900 mb-8 leading-snug">
-              One Loop. Endless Connections.
-            </p>
-            <p className="text-gray-600 leading-relaxed">
-                Empower your campus community. Legacy Loop bridges{" "}
-                <span className="font-medium text-gray-800">
-                  students, alumni, and colleges
-                </span>{" "}
-                — creating a continuous circle of mentorship, opportunity, and
-                growth that strengthens every generation.
-              </p>
-
-            {/* <footer className="text-gray-400 text-xs mt-10">
-              © Legacy Loop
-            </footer> */}
           </div>
-        </div>
 
-        {/* right side */}
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6 sm:mb-8 text-center lg:text-left">
+            Login to your account
+          </h2>
 
-        <div className="flex-1 flex justify-center items-center p-8 md:p-16">
-          <div className="w-full max-w-sm">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-8">
-              Login to your account
-            </h2>
+          <button
+            type="button"
+            className="w-full border border-gray-300 rounded-lg py-2.5 sm:py-2 font-medium text-sm sm:text-base text-gray-700 flex justify-center items-center gap-2 hover:bg-gray-50 transition"
+          >
+            <img
+              src={assets.google_icon}
+              alt="Google"
+              className="h-4 w-4 sm:h-5 sm:w-5"
+            />
+            Sign in with Google
+          </button>
 
-             <button
-                type="button"
-                className="w-full border border-gray-300 rounded-lg py-2 font-medium text-gray-700 flex justify-center items-center gap-2"
-              >
-                <img
-                  src={assets.google_icon}
-                  alt="Google"
-                  className="h-5 w-5"
-                />
-                Sign in with Google
-              </button>
+          <div className="flex items-center my-5 sm:my-6">
+            <div className="flex-1 h-px bg-gray-300"></div>
+            <span className="px-3 text-xs sm:text-sm text-gray-500">or</span>
+            <div className="flex-1 h-px bg-gray-300"></div>
+          </div>
 
-            <div className="flex items-center my-6">
-              <div className="flex-1 h-px bg-gray-300"></div>
-                <span className="px-3 text-sm text-gray-500">or</span>
-              <div className="flex-1 h-px bg-gray-300"></div>
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="john@gmail.com"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 sm:py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5 mt-7">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <div className="relative">
                 <input
-                  type="email"
-                  name="email"
-                  placeholder="john@gmail.com"
-                  value={formData.email}
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="********"
+                  value={formData.password}
                   onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 sm:py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
+                <button 
+                  type="button" 
+                  onClick={() => setShowPassword((s) => !s)} 
+                  aria-label={showPassword ? "Hide password" : "Show password"} 
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded focus:outline-none hover:bg-gray-100 transition"
+                >
+                  {showPassword ? (
+                    <Eye className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                  ) : (
+                    <EyeOff className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                  )}
+                </button>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
-                </label>
-                <div className="relative">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-3 gap-2 sm:gap-0">
+                <label className="flex items-center text-xs sm:text-sm text-gray-600 font-medium">
                   <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="********"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    type="checkbox"
+                    className="mr-2 rounded border-gray-300"
                   />
-                  <button type="button" onClick={() => setShowPassword((s) => !s)} aria-label={showPassword ? "Hide password" : "Show password"} className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded focus:outline-none" >
-                    {
-                      showPassword ? (
-                        <Eye className="w-5 h-5 text-gray-600" />
-                      ) : (
-                        <EyeOff className="w-5 h-5 text-gray-600" />
-                      )
-                    }
-                  </button>
-                </div>
-
-                <div className="flex justify-between items-center mt-3">
-                  <label className="flex items-center text-sm text-gray-600 font-medium">
-                    <input
-                      type="checkbox"
-                      className="mr-2 rounded border-gray-300"
-                    />
-                    Remember me
-                  </label>
-                  <a
-                    href="#"
-                    className="text-sm text-black hover:underline font-medium"
-                  >
-                    Forgot password
-                  </a>
-                </div>
+                  Remember me
+                </label>
+                <a
+                  href="#"
+                  className="text-xs sm:text-sm text-black hover:underline font-medium"
+                >
+                  Forgot password?
+                </a>
               </div>
+            </div>
 
-              <button
-                type="submit"
-                className="w-full bg-black hover:bg-black/85 text-white rounded-lg py-2 font-medium transition"
-              >
-                Log in
-              </button>
-            </form>
+            <button
+              type="submit"
+              className="w-full bg-black hover:bg-black/85 text-white rounded-lg py-2.5 sm:py-2 font-medium text-sm sm:text-base transition mt-6"
+            >
+              Log in
+            </button>
+          </form>
 
-            <p className="text-center text-sm text-gray-600 mt-6">
-              Alumni joining for the first time?{" "}
-              <Link
-                to="/signup"
-                className="text-black font-medium hover:underline"
-              >
-                Sign up
-              </Link>
-            </p>
-          </div>
+          <p className="text-center text-xs sm:text-sm text-gray-600 mt-5 sm:mt-6">
+            Alumni joining for the first time?{" "}
+            <Link to="/signup" className="text-black font-medium hover:underline">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </div>

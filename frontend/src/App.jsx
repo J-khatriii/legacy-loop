@@ -24,50 +24,20 @@ const App = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const isAuthed = !!user;
 
-  console.log("JWT Token:", user?.token);
+  console.log("Token:", user?.token);
   return (
     <>
       <Toaster position="top-right" />
       <Routes>
         {/* root redirect */}
-        <Route
-          path="/"
-          element={
-            isAuthed ? (
-              <Navigate to="/app/layout" replace />
-            ) : (
-              <Navigate to="/signin" replace />
-            )
-          }
-        />
+        <Route path="/" element={ isAuthed ? ( <Navigate to="/app/layout" replace /> ) : ( <Navigate to="/signin" replace /> ) }/>
 
         {/* public */}
-        <Route
-          path="/signin"
-          element={
-            <PublicRoute>
-              <SignIn />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <PublicRoute>
-              <SignUp />
-            </PublicRoute>
-          }
-        />
+        <Route path="/signin" element={ <PublicRoute> <SignIn /> </PublicRoute> } />
+        <Route path="/signup" element={ <PublicRoute> <SignUp /> </PublicRoute> } />
 
         {/* protected app shell */}
-        <Route
-          path="/app"
-          element={
-            <ProtectedRoute>
-              <Shell />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/app" element={ <ProtectedRoute> <Shell /> </ProtectedRoute>} >
           <Route index element={<Layout />} />
           <Route path="layout" element={<Layout />} />
           <Route path="messages" element={<Messages />} />
@@ -82,18 +52,7 @@ const App = () => {
           <Route path="announcements/:id" element={<AnnouncementDetail />} />
 
           {/* Conditional Profile */}
-          <Route
-            path="profile"
-            element={
-              user?.role === "alumni" ? (
-                <AlumniProfile />
-              ) : user?.role === "admin" ? (
-                <AdminProfile />
-              ) : (
-                <Profile />
-              )
-            }
-          />
+          <Route path="profile" element={ user?.role === "alumni" ? ( <AlumniProfile /> ) : user?.role === "admin" ? ( <AdminProfile /> ) : ( <Profile /> ) } />
           <Route path="profile/:profileId" element={<Profile />} />
         </Route>
 

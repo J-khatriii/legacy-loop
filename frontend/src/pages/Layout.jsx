@@ -65,7 +65,7 @@ const Layout = () => {
         <UpcomingEvents />
       </aside>
 
-      <aside className="w-70 p-4 bg-gray-100 overflow-y-auto">
+      <aside className="w-70 p-4 bg-gray-100 overflow-y-auto md:block sm:hidden">
         <SponsoredCard
           title="Sponsored"
           image={assets.sponsored_img}

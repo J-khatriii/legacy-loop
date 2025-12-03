@@ -1,4 +1,4 @@
-import { MapPin, MessageCircle, Plus, UserPlus } from "lucide-react";
+import { MapPin, MessageCircle, MessageCircleIcon, Plus, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const UserCard = ({ user, currentUser }) => {
@@ -105,7 +105,15 @@ const UserCard = ({ user, currentUser }) => {
         >
           <UserPlus className="w-4 h-4" />
           {currentUser?.following?.includes(user._id) ? "Following" : "Follow"}
-        </button>
+        </button>   
+
+        {/* <button
+          onClick={() => navigate(`/app/messages/${user._id}`)}
+          className="w-full py-2 rounded-md flex justify-center items-center gap-2 bg-indigo-500 hover:bg-indigo-900 text-white transition active:scale-95"
+        >
+          <MessageCircleIcon className="w-4 h-4" />
+          Message
+        </button> */}
 
         {/* Connect */}
         <button

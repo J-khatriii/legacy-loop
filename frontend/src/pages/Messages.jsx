@@ -260,7 +260,7 @@ const Messages = () => {
                       }`}
                     >
                       <div
-                        className={`max-w-lg p-3 rounded-lg text-sm ${
+                        className={`max-w-lg p-3 rounded-lg text-sm ${ 
                           m.from === "you"
                             ? "bg-indigo-600 text-white"
                             : "bg-gray-100 text-gray-800"

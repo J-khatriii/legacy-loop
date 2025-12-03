@@ -69,6 +69,37 @@ const getNavItems = (role) => {
   return baseItems;
 }
 
+// Generate initials from name
+const getInitials = (name) => {
+  if (!name) return "?";
+  const parts = name.trim().split(" ");
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+}
+
+// Generate a consistent color based on name
+const getColorFromName = (name) => {
+  if (!name) return "bg-indigo-500";
+  const colors = [
+    "bg-indigo-500",
+    "bg-purple-500",
+    "bg-pink-500",
+    "bg-blue-500",
+    "bg-cyan-500",
+    "bg-teal-500",
+    "bg-green-500",
+    "bg-orange-500",
+    "bg-red-500",
+  ]
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return colors[Math.abs(hash) % colors.length];
+}
+
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -86,6 +117,23 @@ const Sidebar = () => {
     localStorage.removeItem("user");
     navigate("/");
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setCollapsed(true);
+      } else {
+        setCollapsed(false);
+      }
+    }
+
+    // run once on mount
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
 
   const navItems = getNavItems(user?.role);
 
@@ -185,24 +233,41 @@ const Sidebar = () => {
       {/* User Info */}
       {user && (
         <div
-          className={`border-t border-gray-100 p-4 flex items-center gap-3 hover:bg-indigo-50 cursor-pointer transition ${
+          className={`border-t border-gray-100 p-4 flex items-center gap-3 cursor-pointer transition-all group ${
             collapsed ? "justify-center" : ""
           }`}
           onClick={() => navigate("/app/profile")}
         >
-          <img
-            src={
-              user.profilePic ||
-              `https://api.dicebear.com/8.x/avataaars/svg?seed=${user.name}`
-            }
-            alt="User"
-            className="w-10 h-10 rounded-full object-cover border border-gray-200"
-          />
+          {/* Avatar with initials */}
+          <div
+            className={`${
+              collapsed ? "w-9 h-9" : "w-10 h-10"
+            } rounded-full flex items-center justify-center text-white font-bold text-sm ${getColorFromName(
+              user.name
+            )} shadow-md relative overflow-hidden`}
+          >
+            {user.profilePic ? (
+              <img
+                src={user.profilePic}
+                alt={user.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <>
+                <span className="relative z-10">{getInitials(user.name)}</span>
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-linear-to-br from-white/20 to-transparent" />
+              </>
+            )}
+          </div>
           {!collapsed && (
             <>
               <div className="flex flex-col flex-1">
                 <p className="text-sm font-medium text-gray-800 truncate">
                   {user.name}
+                </p>
+                 <p className="text-xs text-gray-500 truncate capitalize">
+                  {user.role || "User"}
                 </p>
                 {/* <p className="text-xs text-gray-500 truncate">{user.email}</p> */}
               </div>
