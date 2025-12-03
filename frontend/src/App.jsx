@@ -19,6 +19,7 @@ import AlumniProfile from "./pages/AlumniProfile";
 import AdminStatistics from "./pages/admin/AdminStatistics";
 import Announcements from "./pages/Announcements";
 import AnnouncementDetail from "./pages/AnnouncementDetail";
+import Jobs from "./pages/Jobs";
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -50,6 +51,7 @@ const App = () => {
           <Route path="reporting" element={<AdminStatistics />} />
           <Route path="announcements" element={<Announcements />} />
           <Route path="announcements/:id" element={<AnnouncementDetail />} />
+          <Route path="jobs" element={<Jobs />} />
 
           {/* Conditional Profile */}
           <Route path="profile" element={ user?.role === "alumni" ? ( <AlumniProfile /> ) : user?.role === "admin" ? ( <AdminProfile /> ) : ( <Profile /> ) } />

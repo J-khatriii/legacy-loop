@@ -15,6 +15,7 @@ import {
   ArrowRightToLine,
   ArrowLeftToLine,
   Megaphone,
+  Earth,
 } from "lucide-react";
 
 const getNavItems = (role) => {
@@ -23,6 +24,7 @@ const getNavItems = (role) => {
     { label: "Discover", href: "/app/people", icon: Search },
     { label: "Messages", href: "/app/messages", icon: MessageCircle },
     { label: "Notifications", href: "/app/notifications", icon: Bell },
+    { label: "Jobs", href: "/app/jobs", icon: Earth },
     { divider: true },
   ]
 
